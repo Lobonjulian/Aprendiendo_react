@@ -1,30 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Task } from "../../models/taks.class";
+import { Task } from '../../models/taks.class';
 
-const TaskComponentes = ({ task }) => {
+
+const TaskComponent = ({ task }) => {
     return (
         <div>
             <h2>
-                Nombre: { task.nombre } 
+                Nombre: { task.name }
             </h2>
             <h3>
-                description: { task.description }
+                Descripción: { task.description }
             </h3>
             <h4>
-                Levels: { task.levels }
+                Level: { task.level }
             </h4>
             <h5>
-                esta completado: { task.completado ? 'COMPLETED':'PENDING' }
+                lista de Tareas: { task.completed ? 'COMPLETED':'PENDING' }
             </h5>
+            
         </div>
     );
 };
 
 
-TaskComponentes.propTypes = {
+TaskComponent.propTypes = {
     task: PropTypes.instanceOf(Task)
 };
 
 
-export default TaskComponentes;
+export default TaskComponent;
