@@ -28,9 +28,32 @@ const TaskListComponent = () => {
     }, [tasks])
 
 
-    const changeCompleted = (id) => {
-        console.log('TODO: Cambiar estado de una tarea')
+    function completeTask(task){
+        console.log('Completa esta tarea:', task);
+        const index = tasks.indexOf(task);
+        const tempTasks = [...tasks];
+        tempTasks[index].completed = !tempTasks[index].completed;
+        // Actualizamos el estado del componente con la nueva lista de tareas y actualizará el 
+        // Iteración de las tareas para mostrar la tarea actualizada
+        setTasks(tempTasks);
     }
+
+    function deleteTask(task){
+        console.log('Eliminar esta tarea:', task);
+        const index = tasks.indexOf(task);
+        const tempTasks = [...tasks];
+        tempTasks.splice(index,1);
+        setTasks(tempTasks);
+    }
+
+    function addTask(task){
+        console.log('agrega esta tarea:', task);
+        const index = tasks.indexOf(task);
+        const tempTasks = [...tasks];
+        tempTasks.push(task);
+        setTasks(tempTasks);
+    }
+
 
     return (
         <div>
@@ -58,7 +81,10 @@ const TaskListComponent = () => {
                                     return (
                                             <TaskComponent 
                                                 key={index} 
-                                                task={task}>
+                                                task={task}
+                                                complete ={completeTask}
+                                                remove = {deleteTask}
+                                                >
                                             </TaskComponent>
                                         )
                                     }
@@ -66,11 +92,9 @@ const TaskListComponent = () => {
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <TaskForm></TaskForm>               
+                </div>                            
             </div>
-                    
-            {/* <TaskComponent task={defaultTask}></TaskComponent> */}
+            <TaskForm add={addTask}></TaskForm>
         </div>
     );
 };
