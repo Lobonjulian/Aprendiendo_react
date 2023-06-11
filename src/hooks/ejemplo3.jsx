@@ -4,13 +4,15 @@
  * - useContext()
  */
 
-import React, { useState, useContext }  from 'react';
+import React, { useState, useContext } from 'react';
+
 /**
  * 
  * @returns Componente 1
  * Dispone de un conexto que va a tener un valor
  * que recibe desde el padre
  */
+
 const miContexto = React.createContext(null)
 
 const Componente1 = () => {
@@ -30,6 +32,7 @@ const Componente1 = () => {
     );
 }
 
+
 const Componente2 = () => {
 
     const state = useContext(miContexto);
@@ -42,6 +45,7 @@ const Componente2 = () => {
         </div>
     );
 }
+
 
 export default function MiComponenteConContexto() {
 
