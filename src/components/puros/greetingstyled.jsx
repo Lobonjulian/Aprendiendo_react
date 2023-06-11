@@ -4,12 +4,12 @@ import React, {useState} from 'react';
 
 // ? Estilo para usuario logueado
 const loggedStyle = {
-    color: 'white'
+    color: 'yellow'
 };
 
 // ? Estilo para usuario no logueado
 const unloggedStyle = {
-    color: 'tomato',
+    color: 'Blue',
     fontWeight: 'bold'
 }
 
@@ -24,7 +24,7 @@ const Greetingstyled = (props) => {
             { logged ? 
                 (<p>Hola, {props.name}</p>) 
                 : 
-                (<p>Please login</p>)
+                (<p>Por favor has un  login</p>)
             }
             <button onClick={() => {
                 console.log('Botón pulsado');
