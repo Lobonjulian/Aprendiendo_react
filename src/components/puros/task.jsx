@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Task } from '../../models/taks.class';
 
+// Importamos la hoja de estilos de task.scss
+//import '../../styles/taks.css'
 
 const TaskComponent = ({ task }) => {
+    
+    useEffect(() => {
+        console.log('Tarea creada')
+        return () => {
+            console.log(`Tarea: ${task.name} se va a desmontar`);
+        }
+    }, [task]);
+
     return (
         <div>
-            <h2>
+            <h2 className='task-name'>
                 Nombre: { task.name }
             </h2>
             <h3>

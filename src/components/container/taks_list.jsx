@@ -3,8 +3,8 @@ import { LEVELS } from '../../models/level.enums';
 import { Task } from '../../models/taks.class';
 import TaskComponent from '../puros/task';
 
-
-
+// Importamos la hoja de estilos de task.scss
+//import '../../styles/taks.scss'; instalar nodesass
 
 const TaskListComponent = () => {
 
@@ -12,10 +12,12 @@ const TaskListComponent = () => {
 
         // Estado del componente
     const [tasks, setTasks] = useState([defaultTask]);
+    const [loading, setLoading] = useState(true);
 
     // Control del ciclo de vida del componente
     useEffect(() => {
         console.log('El estado de la tarea ha sido modificado');
+        setLoading(false);
         return () => {
             console.log('El componente TaskList se va a desmontar...')
         }
