@@ -26,4 +26,3 @@ const Allcycles = () => {
 }
 
 export default Allcycles;
-
