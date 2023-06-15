@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { LEVELS } from '../../models/level.enums';
 import { Task } from '../../models/taks.class';
 import TaskComponent from '../puros/task';
-import TaskForm from '../puros/formularios/taskForm';
 
 // Importamos la hoja de estilos de task.scss
 //import '../../styles/taks.scss'; instalar nodesass
+import TaskForm from '../puros/formularios/taskForm';
 
 const TaskListComponent = () => {
 
@@ -21,7 +21,9 @@ const TaskListComponent = () => {
     // Control del ciclo de vida del componente
     useEffect(() => {
         console.log('El estado de la tarea ha sido modificado');
-        setLoading(false);
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
         return () => {
             console.log('El componente TaskList se va a desmontar...')
         }
@@ -48,12 +50,58 @@ const TaskListComponent = () => {
 
     function addTask(task){
         console.log('agrega esta tarea:', task);
-        const index = tasks.indexOf(task);
         const tempTasks = [...tasks];
         tempTasks.push(task);
         setTasks(tempTasks);
     }
 
+    const Table = () => {
+        return (
+            <table>
+                <thead>
+                    <tr>
+                        <th scope='col'>Titulo</th>
+                        <th scope='col'>Descripcion</th>
+                        <th scope='col'>Prioridad</th>
+                        <th scope='col'>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    { tasks.map((task, index) => {
+                        return (
+                                <TaskComponent 
+                                    key={index} 
+                                    task={task}
+                                    complete={completeTask}
+                                    remove = {deleteTask}
+                                >
+                                </TaskComponent>
+                            )
+                        }
+                    )}
+                </tbody>
+            </table>
+        )
+    }
+
+    let tasksTable;
+
+    if(tasks.length > 0){
+        tasksTable = <Table></Table>
+    }else{
+        tasksTable = (
+        <div>
+            <h3> No hay tareas para mostra</h3>
+            <h4>Por favor, crea una tarea</h4>
+        </div>
+        )
+    }
+
+    const loadingStyle = {
+        color: 'grey',
+        fontSize: '30px',
+        fontWeight: 'bold'
+    }
 
     return (
         <div>
@@ -67,34 +115,12 @@ const TaskListComponent = () => {
             </div>
                     {/* Card Body (content) */}
                     <div className='card-body' data-mdb-perfect-scrollbar='true' style={ {position: 'relative', height: '400px'} }>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th scope='col'>Title</th>
-                                    <th scope='col'>Description</th>
-                                    <th scope='col'>Priority</th>
-                                    <th scope='col'>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            { tasks.map((task, index) => {
-                                    return (
-                                            <TaskComponent 
-                                                key={index} 
-                                                task={task}
-                                                complete ={completeTask}
-                                                remove = {deleteTask}
-                                                >
-                                            </TaskComponent>
-                                        )
-                                    }
-                                )}
-                            </tbody>
-                        </table>
+                     {/* TODO: Add Loading Spinner */}
+                    {loading ? (<p style={loadingStyle}>Loading tasks...</p>) : tasksTable}
                     </div>
                 </div>                            
             </div>
-            <TaskForm add={addTask}></TaskForm>
+            <TaskForm add={addTask} length={tasks.length}></TaskForm>
         </div>
     );
 };

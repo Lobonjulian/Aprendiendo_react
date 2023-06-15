@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+
+// Models
 import { Task } from '../../models/taks.class';
 import { LEVELS } from '../../models/level.enums';
 
@@ -40,7 +42,8 @@ const TaskComponent = ({ task, complete, remove }) => {
                     <span className='badge bg-danger'>
                         {task.level}
                     </span>
-                </h6>)
+                </h6>
+                )
             default:
                 break;
         }
@@ -52,15 +55,27 @@ const TaskComponent = ({ task, complete, remove }) => {
  */
     function taskCompletedIcon(){
         if(task.completed){
-            return (<i onClick={() => complete(task)} className='bi-toggle-on task-action' style={{color: 'green'}}></i>)
+            return (
+            <i onClick={() => complete(task)} className='bi-toggle-on task-action' style={{color: 'green'}}></i>)
         }else{
             return (<i onClick={() => complete(task)} className='bi-toggle-off task-action' style={{color: 'grey'}}></i>)
         }
     }
+    
+    const taskCompleted = {
+        color: '#900',
+        fontWeight: 'bold',
+        textDecoration: 'line-through'
+    }
+
+    const taskPending = {
+        fontWeight: 'bold',
+        color: 'tomato'
+    }
 
 
     return (
-        <tr className='fw-normal'>
+        <tr className='fw-normal'  style={task.completed ? taskCompleted : taskPending}>
             <th>
                 <span className='ms-2'>{task.name}</span>
             </th>
